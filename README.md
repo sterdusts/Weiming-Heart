@@ -2,7 +2,7 @@
 
 [查看中文](README.md) · [View English](README.en.md) · [下载中文 Markdown](README.md?raw=1) · [Download English Markdown](README.en.md?raw=1)
 
-志愿之外 / 知我者 是一个面向高考后学生的 AI 访谈式人生方向探索小程序。
+志愿之外 / 知我者 是一个面向高考后学生的 AI 访谈式人生方向探索微信小程序。
 
 它不是传统志愿填报工具，不提供院校分数线、录取概率、专业排名，也不做“AI 张雪峰”。项目目标是在填报志愿前，帮助学生整理自己对专业、城市、大学、现实条件和未来方向的理解。
 
