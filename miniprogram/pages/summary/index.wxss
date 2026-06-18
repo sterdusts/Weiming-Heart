@@ -1,0 +1,274 @@
+page {
+  min-height: 100%;
+  background: #F8F7F4;
+}
+
+.page {
+  box-sizing: border-box;
+  color: #1F2937;
+  min-height: 100vh;
+  opacity: 0;
+  padding: 28rpx 28rpx calc(310rpx + env(safe-area-inset-bottom));
+  transform: translateY(22rpx);
+  transition: opacity 560ms ease, transform 560ms ease;
+}
+
+.page-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-leaving {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18rpx) scale(0.992);
+  transition: opacity 340ms ease, transform 340ms ease;
+}
+
+.reading-card {
+  background: #FFFDF8;
+  border-radius: 28rpx;
+  box-shadow: 0 24rpx 60rpx rgba(31, 41, 55, 0.08);
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 34rpx 36rpx 32rpx;
+  position: relative;
+}
+
+.leaf {
+  opacity: 0.1;
+  position: absolute;
+}
+
+.leaf-top {
+  height: 104rpx;
+  right: 22rpx;
+  top: 28rpx;
+  transform: rotate(-18deg);
+  width: 104rpx;
+}
+
+.leaf-bottom {
+  bottom: 18rpx;
+  height: 112rpx;
+  left: 16rpx;
+  transform: rotate(16deg);
+  width: 112rpx;
+}
+
+.brand-area {
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  color: #1F2937;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 40rpx;
+}
+
+.subtitle {
+  color: rgba(31, 41, 55, 0.54);
+  font-size: 23rpx;
+  line-height: 32rpx;
+  margin-top: 4rpx;
+}
+
+.card-meta {
+  color: rgba(31, 41, 55, 0.42);
+  font-size: 21rpx;
+  line-height: 30rpx;
+  margin-top: 8rpx;
+}
+
+.main-keyword {
+  color: #1F2937;
+  font-size: 58rpx;
+  font-weight: 700;
+  line-height: 72rpx;
+  margin-top: 44rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.sub-keywords {
+  color: #6B7280;
+  font-size: 23rpx;
+  line-height: 32rpx;
+  margin-top: 8rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.intention-list {
+  margin-top: 18rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.intention-row {
+  align-items: flex-start;
+  display: flex;
+  line-height: 36rpx;
+  margin-top: 8rpx;
+}
+
+.intention-row:first-child {
+  margin-top: 0;
+}
+
+.intention-label {
+  color: rgba(31, 41, 55, 0.46);
+  flex-shrink: 0;
+  font-size: 22rpx;
+  width: 144rpx;
+}
+
+.intention-value {
+  color: #1F2937;
+  flex: 1;
+  font-size: 24rpx;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.radar-title {
+  color: rgba(31, 41, 55, 0.58);
+  font-size: 25rpx;
+  line-height: 34rpx;
+  margin-top: 26rpx;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.radar-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 4rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.radar-canvas {
+  height: 470rpx;
+  width: 520rpx;
+}
+
+.conclusion {
+  color: #1F2937;
+  font-size: 28rpx;
+  line-height: 46rpx;
+  margin-top: 8rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.actions {
+  background: linear-gradient(180deg, rgba(248, 247, 244, 0) 0%, #F8F7F4 18%, #F8F7F4 100%);
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  left: 0;
+  margin-top: 0;
+  padding: 28rpx 28rpx calc(18rpx + env(safe-area-inset-bottom));
+  position: fixed;
+  right: 0;
+  z-index: 20;
+}
+
+.action-row {
+  display: flex;
+  gap: 14rpx;
+}
+
+.explore-entry {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1rpx solid rgba(61, 189, 147, 0.26);
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  display: flex;
+  gap: 12rpx;
+  height: 76rpx;
+  padding: 8rpx 8rpx 8rpx 28rpx;
+  width: 100%;
+}
+
+.explore-entry-placeholder {
+  color: rgba(31, 41, 55, 0.34);
+  flex: 1;
+  font-size: 27rpx;
+  line-height: 40rpx;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.explore-entry-action {
+  background: rgba(61, 189, 147, 0.12);
+  border-radius: 999rpx;
+  color: #23775D;
+  flex: 0 0 96rpx;
+  font-size: 25rpx;
+  font-weight: 700;
+  height: 58rpx;
+  line-height: 58rpx;
+  text-align: center;
+}
+
+.action-button {
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  font-size: 27rpx;
+  font-weight: 700;
+  height: 78rpx;
+  line-height: 78rpx;
+  margin: 0;
+  width: 100%;
+}
+
+.action-button::after {
+  border: none;
+}
+
+.primary-button {
+  background: #3DBD93;
+  color: #FFFFFF;
+  flex: 1;
+}
+
+.secondary-button {
+  background: #FFFFFF;
+  border: 1rpx solid rgba(61, 189, 147, 0.28);
+  color: #23775D;
+  flex: 1;
+}
+
+.restart-button {
+  background: transparent;
+  color: rgba(31, 41, 55, 0.56);
+  font-size: 24rpx;
+  font-weight: 600;
+  height: 48rpx;
+  line-height: 48rpx;
+}
+
+.action-button[disabled] {
+  background: #A9DEC8;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.share-canvas {
+  height: 1350px;
+  left: -9999px;
+  position: fixed;
+  top: -9999px;
+  width: 1080px;
+}

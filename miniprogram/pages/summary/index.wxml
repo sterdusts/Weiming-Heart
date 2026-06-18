@@ -1,0 +1,73 @@
+<view class="page {{pageVisible ? 'page-show' : ''}} {{pageLeaving ? 'page-leaving' : ''}}">
+  <view
+    class="reading-card"
+    wx:if="{{isReady}}"
+    bindlongpress="saveCard"
+  >
+    <image class="leaf leaf-top" src="/assets/leaf.svg" mode="aspectFit"></image>
+    <image class="leaf leaf-bottom" src="/assets/leaf.svg" mode="aspectFit"></image>
+
+    <view class="brand-area">
+      <view class="brand">{{summaryCard.brand}}</view>
+      <view class="subtitle">{{summaryCard.subtitle}}</view>
+      <view class="card-meta" wx:if="{{summaryCard.explorationDate}}">
+        第 {{summaryCard.explorationCount}} 次探索 · {{summaryCard.explorationDate}}
+      </view>
+    </view>
+
+    <view class="main-keyword">{{summaryCard.mainKeyword}}</view>
+    <view class="sub-keywords">{{summaryCard.subKeywords}}</view>
+
+    <view class="intention-list" wx:if="{{summaryCard.intentionRows.length}}">
+      <view class="intention-row" wx:for="{{summaryCard.intentionRows}}" wx:key="label">
+        <view class="intention-label">{{item.label}}</view>
+        <view class="intention-value">{{item.value}}</view>
+      </view>
+    </view>
+
+    <view class="radar-title">当前内心关注度</view>
+    <view class="radar-wrap">
+      <canvas
+        id="radarCanvas"
+        type="2d"
+        class="radar-canvas"
+      ></canvas>
+    </view>
+
+    <view class="conclusion">{{summaryCard.conclusion}}</view>
+  </view>
+
+  <view class="actions" wx:if="{{isReady}}">
+    <view class="explore-entry" bindtap="enterExplore">
+      <view class="explore-entry-placeholder">继续写下你想探索的问题</view>
+      <view class="explore-entry-action">探索</view>
+    </view>
+
+    <view class="action-row">
+      <button
+        class="action-button primary-button"
+        open-type="share"
+        disabled="{{!imageReady}}"
+      >
+        {{pageCopy.shareButton}}
+      </button>
+      <button class="action-button secondary-button" bindtap="saveCard">
+        {{pageCopy.saveButton}}
+      </button>
+    </view>
+
+    <button
+      class="action-button restart-button"
+      bindtap="restartExploration"
+    >
+      {{pageCopy.restartButton}}
+    </button>
+  </view>
+
+  <canvas
+    id="shareCanvas"
+    type="2d"
+    class="share-canvas"
+    style="height: {{shareCanvasHeight}}px;"
+  ></canvas>
+</view>

@@ -1,0 +1,137 @@
+page {
+  min-height: 100%;
+  background: #F8F7F4;
+}
+
+.page {
+  align-items: center;
+  box-sizing: border-box;
+  color: #1F2937;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  opacity: 1;
+  padding: 64rpx 44rpx calc(64rpx + env(safe-area-inset-bottom));
+  transform: translateY(0);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.page-leaving {
+  opacity: 0;
+  transform: translateY(-18rpx);
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-24rpx);
+  width: 100%;
+}
+
+.leaf-stage {
+  align-items: center;
+  display: flex;
+  height: 180rpx;
+  justify-content: center;
+  margin-bottom: 54rpx;
+  position: relative;
+  width: 180rpx;
+}
+
+.leaf-icon {
+  animation: leaf-grow-sway 3200ms ease-in-out infinite;
+  height: 128rpx;
+  transform-origin: 50% 86%;
+  width: 128rpx;
+}
+
+.seed-shadow {
+  animation: shadow-breathe 2600ms ease-in-out infinite;
+  background: rgba(61, 189, 147, 0.12);
+  border-radius: 50%;
+  bottom: 14rpx;
+  height: 18rpx;
+  position: absolute;
+  width: 96rpx;
+}
+
+.title {
+  animation: text-rise 900ms ease both;
+  color: #1F2937;
+  font-size: 34rpx;
+  font-weight: 700;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.subtitle {
+  animation: text-rise 900ms ease 120ms both;
+  color: rgba(31, 41, 55, 0.56);
+  font-size: 28rpx;
+  line-height: 44rpx;
+  margin-top: 16rpx;
+  text-align: center;
+}
+
+.retry-button {
+  background: #3DBD93;
+  border-radius: 8rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+  height: 82rpx;
+  line-height: 82rpx;
+  margin: 42rpx 0 0;
+  width: 260rpx;
+}
+
+.retry-button::after {
+  border: none;
+}
+
+@keyframes leaf-grow-sway {
+  0% {
+    opacity: 0.86;
+    transform: scale(0.96) rotate(-2deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  100% {
+    opacity: 0.86;
+    transform: scale(0.96) rotate(-2deg);
+  }
+}
+
+@keyframes shadow-breathe {
+  0% {
+    opacity: 0.42;
+    transform: scaleX(0.82);
+  }
+
+  50% {
+    opacity: 0.76;
+    transform: scaleX(1.08);
+  }
+
+  100% {
+    opacity: 0.42;
+    transform: scaleX(0.82);
+  }
+}
+
+@keyframes text-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

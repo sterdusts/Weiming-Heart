@@ -1,0 +1,7 @@
+{
+  "name": "deepseekChat",
+  "version": "1.0.0",
+  "description": "Cloud function proxy for DeepSeek chat completions.",
+  "main": "index.js",
+  "license": "ISC"
+}

@@ -1,0 +1,39 @@
+# WeChat DevTools local/private config
+project.private.config.json
+*.private.config.json
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+
+# Dependencies and generated packages
+node_modules/
+miniprogram_npm/
+cloudfunctions/**/node_modules/
+
+# Build/cache/log files
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Production mini program QR code. Provide your own for deployment.
+miniprogram/assets/mini-code.jpg

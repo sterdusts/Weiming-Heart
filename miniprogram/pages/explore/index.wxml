@@ -1,0 +1,198 @@
+<view class="page">
+  <view class="topbar">
+    <view class="top-main">
+      <image class="top-leaf" src="/assets/leaf.svg" mode="aspectFit"></image>
+      <view class="top-text">
+        <view class="top-title">自由探索</view>
+        <view class="top-subtitle">{{activeChatTitle}}</view>
+      </view>
+    </view>
+
+    <view class="top-actions">
+      <button class="top-action" aria-label="历史记录" bindtap="openSessionPanel">
+        <image class="top-action-icon" src="/assets/icon-book.svg" mode="aspectFit"></image>
+      </button>
+      <button class="top-action primary-action" aria-label="新建探索" bindtap="createNewChat">
+        <image class="top-action-icon" src="/assets/icon-plus.svg" mode="aspectFit"></image>
+      </button>
+    </view>
+  </view>
+
+  <scroll-view
+    class="journal"
+    scroll-y
+    scroll-with-animation
+    scroll-into-view="{{scrollIntoView}}"
+  >
+    <view class="record" wx:for="{{records}}" wx:key="id">
+      <view id="{{item.id}}" class="user-note" wx:if="{{item.type == 'user'}}">
+        <view class="note-label">我写下</view>
+        <view class="note-text">{{item.content}}</view>
+      </view>
+
+      <view id="{{item.id}}" class="ai-card" wx:if="{{item.type == 'ai'}}">
+        <view class="card-title">{{item.content.title}}</view>
+
+        <view class="explore-section first-section">
+          <view class="section-label">观察</view>
+          <view class="section-text">{{item.content.observation}}</view>
+        </view>
+
+        <view class="explore-section">
+          <view class="section-label">现实信息</view>
+
+          <block wx:if="{{item.content.realityBlocks && item.content.realityBlocks.length}}">
+            <block wx:for="{{item.content.realityBlocks}}" wx:for-item="block" wx:key="id">
+              <view class="section-text reality-text-block" wx:if="{{block.type == 'text'}}">
+                {{block.text}}
+              </view>
+
+              <view class="reality-notice" wx:elif="{{block.type == 'notice'}}">
+                {{block.text}}
+              </view>
+
+              <view class="reality-table-block" wx:elif="{{block.type == 'table'}}">
+                <view class="reality-block-title" wx:if="{{block.title}}">{{block.title}}</view>
+                <scroll-view class="reality-table-scroll" scroll-x>
+                  <view class="reality-table">
+                    <view class="reality-row reality-head">
+                      <view class="reality-cell" wx:for="{{block.columns}}" wx:for-item="cell" wx:key="*this">
+                        {{cell}}
+                      </view>
+                    </view>
+                    <view class="reality-row" wx:for="{{block.rows}}" wx:for-item="row" wx:for-index="rowIndex" wx:key="rowIndex">
+                      <view class="reality-cell" wx:for="{{row}}" wx:for-item="cell" wx:key="*this">
+                        {{cell}}
+                      </view>
+                    </view>
+                  </view>
+                </scroll-view>
+              </view>
+
+              <view class="reality-bar-block" wx:elif="{{block.type == 'bar'}}">
+                <view class="reality-block-title" wx:if="{{block.title}}">{{block.title}}</view>
+                <view class="reality-block-unit" wx:if="{{block.unit}}">{{block.unit}}</view>
+                <view class="bar-item" wx:for="{{block.items}}" wx:for-item="bar" wx:key="label">
+                  <view class="bar-meta">
+                    <view class="bar-label">{{bar.label}}</view>
+                    <view class="bar-note" wx:if="{{bar.note}}">{{bar.note}}</view>
+                  </view>
+                  <view class="bar-track">
+                    <view class="bar-fill" style="width: {{bar.width}};"></view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </block>
+
+          <view class="section-text" wx:else>{{item.content.reality}}</view>
+
+          <view class="reality-perspective" wx:if="{{item.content.realityPerspective}}">
+            {{item.content.realityPerspective}}
+          </view>
+
+          <view class="source-list" wx:if="{{item.content.sources && item.content.sources.length}}">
+            <view class="source-title">参考来源</view>
+            <view class="source-item" wx:for="{{item.content.sources}}" wx:for-item="source" wx:key="name">
+              <view class="source-main">
+                <view class="source-name">{{source.name}}</view>
+                <view class="source-note">
+                  <text wx:if="{{source.type}}">{{source.type}}</text>
+                  <text wx:if="{{source.type && source.note}}"> · </text>
+                  <text wx:if="{{source.note}}">{{source.note}}</text>
+                </view>
+              </view>
+              <button
+                class="source-open"
+                wx:if="{{source.url}}"
+                data-name="{{source.name}}"
+                data-url="{{source.url}}"
+                catchtap="openSource"
+              >
+                查看
+              </button>
+            </view>
+          </view>
+
+          <view class="uncertainty-note" wx:if="{{item.content.uncertainty}}">
+            {{item.content.uncertainty}}
+          </view>
+
+          <view class="verification-card" wx:if="{{item.content.verification && item.content.verification.shouldShow}}">
+            <view class="verification-label">{{item.content.verification.statusLabel}}</view>
+            <view class="verification-text" wx:if="{{item.content.verification.basis}}">
+              {{item.content.verification.basis}}
+            </view>
+            <view class="verification-text" wx:if="{{item.content.verification.conflict}}">
+              {{item.content.verification.conflict}}
+            </view>
+            <view class="verification-fields" wx:if="{{item.content.verification.requiredFields && item.content.verification.requiredFields.length}}">
+              <view class="verification-field" wx:for="{{item.content.verification.requiredFields}}" wx:key="*this">
+                {{item}}
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="explore-question">
+          <view class="section-label">继续追问</view>
+          <view class="question-text">{{item.content.question}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view id="thinking" class="thinking" wx:if="{{isThinking}}">
+      <image class="thinking-leaf" src="/assets/leaf.svg" mode="aspectFit"></image>
+      <view class="thinking-time">{{thinkingElapsedText}}</view>
+      <view class="thinking-text">我在把问题和现实条件放在一起看</view>
+    </view>
+  </scroll-view>
+
+  <view class="composer">
+    <view class="composer-bar">
+      <textarea
+        class="input"
+        value="{{inputValue}}"
+        maxlength="-1"
+        auto-height
+        placeholder="继续写下你想探索的问题"
+        placeholder-class="input-placeholder"
+        disabled="{{isThinking}}"
+        bindinput="onInput"
+      />
+      <button class="send" aria-label="发送" disabled="{{isThinking}}" bindtap="submitExplore">
+        <image class="send-icon" src="/assets/icon-send.svg" mode="aspectFit"></image>
+      </button>
+    </view>
+  </view>
+
+  <view class="session-mask {{sessionPanelVisible ? 'session-mask-show' : ''}}" wx:if="{{showSessionPanel}}" bindtap="closeSessionPanel">
+    <view class="session-panel {{sessionPanelVisible ? 'session-panel-show' : ''}}" catchtap="noop">
+      <view class="session-header">
+        <view>
+          <view class="session-title">探索记录</view>
+          <view class="session-subtitle">选择一段过往探索继续，长按可删除</view>
+        </view>
+      </view>
+
+      <view class="session-empty" wx:if="{{!chatSessions.length}}">
+        还没有保存的探索
+      </view>
+
+      <scroll-view class="session-list" scroll-y wx:else>
+        <view
+          class="session-item {{item.id == activeChatId ? 'session-active' : ''}}"
+          wx:for="{{chatSessions}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="switchSession"
+          catchlongpress="confirmDeleteSession"
+        >
+          <view class="session-item-title">{{item.title}}</view>
+          <view class="session-item-summary">{{item.summary}}</view>
+          <view class="session-item-date">{{item.updatedAt}}</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="header">
+    <view class="title">探索历史</view>
+    <view class="subtitle">只保留每一次问卷整理出的探索卡。轻触记录，可切换到对应的探索上下文。</view>
+  </view>
+
+  <view class="empty" wx:if="{{!history.length}}">
+    <image class="empty-leaf" src="/assets/leaf.svg" mode="aspectFit"></image>
+    <view class="empty-title">还没有探索记录</view>
+    <view class="empty-subtitle">完成一次问卷整理后，会在这里留下你的探索卡。</view>
+  </view>
+
+  <view class="history-list" wx:else>
+    <view
+      class="history-card {{item.isActive ? 'history-card-active' : ''}}"
+      wx:for="{{history}}"
+      wx:key="explorationId"
+      data-id="{{item.explorationId}}"
+      bindtap="switchRecord"
+    >
+      <view class="record-meta">
+        <view class="record-date">第 {{item.explorationCount}} 次探索 · {{item.date}}</view>
+        <view class="record-current" wx:if="{{item.isActive}}">当前</view>
+      </view>
+      <view class="record-title">{{item.title}}</view>
+      <view class="record-summary">{{item.summary}}</view>
+      <view class="record-action">{{item.isActive ? '正在使用这次探索' : '切换到这次探索'}}</view>
+    </view>
+  </view>
+</view>

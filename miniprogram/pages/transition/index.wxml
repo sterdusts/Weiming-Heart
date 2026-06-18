@@ -1,0 +1,15 @@
+<view class="page {{pageLeaving ? 'page-leaving' : ''}}">
+  <view class="center">
+    <view class="leaf-stage" aria-hidden="true">
+      <image class="leaf-icon" src="/assets/leaf.svg" mode="aspectFit"></image>
+      <view class="seed-shadow"></view>
+    </view>
+
+    <view class="title">{{copy.title}}</view>
+    <view class="subtitle">{{copy.subtitle}}</view>
+
+    <button class="retry-button" wx:if="{{hasError}}" bindtap="retry">
+      再整理一次
+    </button>
+  </view>
+</view>

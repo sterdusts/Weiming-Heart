@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/transition/index",
+    "pages/summary/index",
+    "pages/explore/index",
+    "pages/history/index",
+    "pages/webview/index"
+  ],
+  "window": {
+    "backgroundColor": "#F8F7F4",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F8F7F4",
+    "navigationBarTitleText": "志愿之外",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

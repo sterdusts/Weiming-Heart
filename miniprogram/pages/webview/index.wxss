@@ -1,0 +1,24 @@
+page {
+  background: #F8F7F4;
+  min-height: 100%;
+}
+
+.fallback {
+  box-sizing: border-box;
+  color: #1F2937;
+  padding: 120rpx 44rpx;
+  text-align: center;
+}
+
+.fallback-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  line-height: 48rpx;
+}
+
+.fallback-text {
+  color: rgba(31, 41, 55, 0.56);
+  font-size: 26rpx;
+  line-height: 42rpx;
+  margin-top: 14rpx;
+}

@@ -1,0 +1,170 @@
+<view class="page {{pageLeaving ? 'page-leaving' : ''}} {{mode == 'landing' ? 'landing-page' : ''}} {{landingEntering ? 'landing-entering' : ''}} {{isStartingInterview ? 'landing-starting' : ''}} {{isReturningLanding ? 'interview-returning' : ''}}">
+  <block wx:if="{{mode == 'landing'}}">
+    <view class="landing-screen" bindtap="startExploration">
+      <view class="landing-title-group">
+        <view class="landing-title">志愿之外</view>
+        <view class="landing-subtitle">{{homeSubtitle}}</view>
+        <view
+          class="landing-profile-card"
+          wx:if="{{hasProfile}}"
+          catchtap="viewCard"
+        >
+          <view class="landing-profile">{{homeTitle}}</view>
+          <view class="profile-card-hint">轻触查看你的探索卡</view>
+        </view>
+      </view>
+
+      <view class="tap-hint">轻触屏幕开始探索</view>
+
+      <view class="hero-sprout-wrap">
+        <image class="hero-sprout" src="/assets/leaf.svg" mode="aspectFit"></image>
+      </view>
+
+      <view class="landing-entry-row" catchtap="noop">
+        <view
+          class="landing-explore-entry"
+          wx:if="{{hasProfile}}"
+          catchtap="continueExplore"
+        >
+          <view class="explore-entry-placeholder">继续写下你想探索的问题</view>
+          <view class="explore-entry-action">进入</view>
+        </view>
+
+        <view class="landing-history-button" catchtap="viewHistory" aria-label="历史记录">
+          <image class="landing-history-icon" src="/assets/icon-book.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+
+      <view class="landing-quote">
+        <view class="quote-line">知我者，谓我心忧；</view>
+        <view class="quote-line">不知我者，谓我何求。</view>
+        <view class="quote-source">《诗经》</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="interview-screen {{interviewEntering ? 'interview-screen-show' : ''}}">
+    <view class="top hero-section">
+      <view class="hero-text">
+        <view class="brand brand-title">志愿之外</view>
+        <view class="tagline brand-subtitle">现实为底，理想为灯</view>
+      </view>
+
+      <view class="sprout-wrap">
+        <image
+          class="sprout-decoration"
+          src="/assets/sprout.svg"
+          mode="aspectFit"
+        />
+        <view class="back-home-button" catchtap="returnLanding" aria-label="返回主页">
+          <image class="back-home-icon" src="/assets/icon-home.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="stage {{isReflecting ? 'stage-reflecting' : ''}}" wx:if="{{currentQuestion}}">
+      <view class="progress">
+        <view class="progress-text">志愿之外问卷 · {{progressText}}</view>
+        <view class="progress-line">
+          <view class="progress-line-active" style="width: {{progressPercent}}%;"></view>
+        </view>
+      </view>
+
+      <view class="card-slot">
+        <block wx:if="{{!isReflecting}}">
+          <view class="interview-card {{cardVisible ? 'interview-card-show' : ''}} {{isAdvancing ? 'interview-card-leaving' : ''}}">
+            <view class="question-card">
+              <view class="question-step">{{currentQuestion.step}}</view>
+              <view class="question-title">{{currentQuestion.title}}</view>
+
+              <view class="question-tip" wx:if="{{currentQuestion.tip}}">
+                {{currentQuestion.tip}}
+              </view>
+
+              <view class="field-list" wx:if="{{currentQuestion.type == 'fields'}}">
+                <view class="field-item" wx:for="{{fieldValues}}" wx:key="key">
+                  <view class="field-label">{{item.label}}</view>
+                  <input
+                    class="field-input"
+                    type="{{item.inputType}}"
+                    value="{{item.value}}"
+                    placeholder="{{item.placeholder}}"
+                    placeholder-class="input-placeholder"
+                    data-index="{{index}}"
+                    bindinput="onFieldInput"
+                  />
+                </view>
+              </view>
+
+              <view class="option-list" wx:if="{{currentQuestion.type == 'multi' || currentQuestion.type == 'mixed'}}">
+                <view
+                  class="option-item {{item.selected ? 'option-selected' : ''}}"
+                  wx:for="{{optionItems}}"
+                  wx:key="label"
+                  data-index="{{index}}"
+                  bindtap="toggleOption"
+                >
+                  {{item.label}}
+                </view>
+              </view>
+
+              <view class="slider-block" wx:if="{{currentQuestion.type == 'slider'}}">
+                <view class="slider-value">{{sliderValue}}</view>
+                <slider
+                  min="{{currentQuestion.min}}"
+                  max="{{currentQuestion.max}}"
+                  step="1"
+                  value="{{sliderValue}}"
+                  activeColor="#3DBD93"
+                  backgroundColor="rgba(61, 189, 147, 0.16)"
+                  block-color="#3DBD93"
+                  block-size="24"
+                  bindchange="onSliderChange"
+                  bindchanging="onSliderChange"
+                />
+                <view class="slider-label-row">
+                  <view>{{currentQuestion.leftLabel}}</view>
+                  <view>{{currentQuestion.rightLabel}}</view>
+                </view>
+                <view class="slider-text">{{sliderText}}</view>
+              </view>
+
+              <view class="open-block" wx:if="{{currentQuestion.openQuestion}}">
+                <view class="open-question">{{currentQuestion.openQuestion}}</view>
+                <textarea
+                  class="open-answer"
+                  value="{{openValue}}"
+                  maxlength="-1"
+                  auto-height="{{false}}"
+                  placeholder="{{currentQuestion.placeholder}}"
+                  placeholder-class="answer-placeholder"
+                  bindinput="onOpenInput"
+                />
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <view
+          wx:else
+          class="reflection-card {{reflectionVisible ? 'reflection-card-show' : ''}}"
+        >
+          <view class="reflection-label">这一刻的回应</view>
+          <view class="reflection-text">{{reflectionText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom {{isReflecting ? 'bottom-hidden' : ''}}">
+      <button
+        class="next-button"
+        disabled="{{pageLeaving || isAdvancing || isReflecting || !interviewEntering}}"
+        bindtap="nextQuestion"
+      >
+        {{isAdvancing ? "正在记录" : "下一步"}}
+      </button>
+    </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,10 @@
+<view class="fallback" wx:if="{{!url}}">
+  <view class="fallback-title">暂时无法打开来源</view>
+  <view class="fallback-text">这个来源链接不完整，建议回到上一页继续查看。</view>
+</view>
+
+<web-view
+  wx:else
+  src="{{url}}"
+  binderror="onWebError"
+></web-view>
